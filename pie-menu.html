@@ -1,15 +1,18 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 
 <!--
 `pie-menu`
-A LRN element
+A pie menu of context menu options.
 
 @demo demo/index.html
 
+SVG Menu based on the excellent resource at : https://sarasoueidan.com/tools/circulus
+
 @microcopy - the mental model for this element
- -
- -
- -
+ - pie - a delicious circle shaped container used to house berries or fruit filling. Best served with <ice-cream> or <boiled-apples>.
+ - pie-menu - a circular menu that has been proven to be easier to use as a navigational element than a rectangular menu.
+ - svg - an HTML tag that no one understands, not even the person who made this, yet loves and respects its differences and knows how important it is.
 
 -->
 
@@ -19,22 +22,193 @@ A LRN element
       :host {
         display: block;
       }
-    </style>
-    <h2>[[title]]</h2>
-  </template>
+      :host[size='small'] {
+        display: block;
+      }
+      :host[size='medium'] {
+        display: block;
+      }
+      :host[size='large'] {
+        display: block;
+      }
+      :host[size='epic'] {
+        display: block;
+      }
+      #menu {
+        display: block;
+        margin: 0 auto;
+        transform-origin: 50% 50% 0px;
+        transform: matrix3d(0.707842, -0.70637, 0, 0, 0.70637, 0.707842, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        touch-action: none;
+        -moz-user-select: none;
+      }
+      .icon {
+        font-size: 1.5em;
+      }
 
+      a {
+        cursor: pointer;
+        outline: none;
+      }
+
+      /* You can change these default styles any way you want */
+      .item .sector {
+        transition: all .1s linear;
+        fill: #fff;
+        stroke: #111;
+      }
+      .item:hover .sector, .item:focus .sector {
+          fill: #eee;
+      }
+      .menu-trigger {
+        fill: #EA2A55;
+        pointer-events: auto;
+      }
+      .menu-trigger:hover, .menu-trigger:focus {
+        cursor: pointer;
+        fill: #FF2A55;
+      }
+      symbol {
+        overflow: visible;
+      }
+    </style>
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-2 -2 504 504" id="menu">
+        <g id="symbolsContainer">
+          <!-- option 1 -->
+          <symbol class="icon" id="icon-1" viewBox="0 0 83 83">
+            <iron-icon icon="[[icon1]]"></iron-icon>
+            <text fill="#222" x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="1.2em">[[label1]]</text>
+          </symbol>
+          <!-- option 2 -->
+          <symbol class="icon" id="icon-2" viewBox="0 0 83 83">
+            <iron-icon icon="[[icon2]]"></iron-icon>
+            <text fill="#222" x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="1.2em">[[label2]]</text>
+          </symbol>
+          <!-- option 3 -->
+          <symbol class="icon" id="icon-3" viewBox="0 0 83 83">
+            <iron-icon icon="[[icon3]]"></iron-icon>
+            <text fill="#222" x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="1.2em">[[label3]]</text>
+          </symbol>
+          <!-- option 4 -->
+          <symbol class="icon icon-" id="icon-4" viewBox="0 0 83 83">
+            <iron-icon icon="[[icon4]]"></iron-icon>
+            <text fill="#222" x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="1.2em">[[label4]]</text>
+          </symbol>
+        </g>
+        <g id="itemsContainer">
+          <!-- pie part 1 -->
+          <a class="item" id="item-1" role="link" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" xlink:title$="[[label1]]" transform="matrix(1,0,0,1,0,0)" data-svg-origin="250 250"><path fill="none" stroke="#111" stroke-width="3" class="sector" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z"></path><use xlink:href="#icon-1" width="83" height="83" x="333.5" y="83.5" transform="rotate(45 375 125)"></use></a>
+          <!-- pie part 2 -->
+          <a class="item" id="item-2" role="link" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" xlink:title$="[[label2]]" transform="matrix(0,-1,1,0,0,500)" data-svg-origin="250 250"><path fill="none" stroke="#111" stroke-width="3" class="sector" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z"></path><use xlink:href="#icon-2" width="83" height="83" x="333.5" y="83.5" transform="rotate(135 375 125)"></use></a>
+          <!-- pie part 3 -->
+          <a class="item" id="item-3" role="link" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" xlink:title$="[[label3]]" transform="matrix(-1,0,0,-1,500,500)" data-svg-origin="250 250"><path fill="none" stroke="#111" stroke-width="3" class="sector" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z"></path><use xlink:href="#icon-3" width="83" height="83" x="333.5" y="83.5" transform="rotate(-135 375 125)"></use></a>
+          <!-- pie part 4 -->
+          <a class="item" id="item-4" role="link" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" xlink:title$="[[label4]]" transform="matrix(0,1,-1,0,500.00000000000006,0)" data-svg-origin="250 250"><path fill="none" stroke="#111" stroke-width="3" class="sector" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z"></path><use xlink:href="#icon-4" width="83" height="83" x="333.5" y="83.5" transform="rotate(-45 375 125)"></use></a>
+        </g>
+        <g id="trigger" role="button">
+          <a class="trigger menu-trigger" id="item-5" role="link" tabindex="1" on-tap="_itemTapped" on-keydown="_itemTapped" xlink:title$="[[fabLabel]]">
+            <circle cx="250" cy="250" r="75"></circle>
+            <text fill="#222" x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="1.2em">[[fabLabel]]</text>
+          </a>
+        </g>
+    </svg>
+  </template>
   <script>
     Polymer({
-
       is: 'pie-menu',
-
       properties: {
-        title: {
+        /**
+         * Simple sizes
+         */
+        size: {
           type: String,
-          value: 'pie-menu',
+          value: 'medium',
+          reflectToAttribute: true,
+        },
+        /**
+         * Icon to use for the middle fab button.
+         */
+        fabIcon: {
+          type: String,
+          value: 'home',
+        },
+        /**
+         * Label to use for option 1.
+         */
+        fabLabel: {
+          type: String,
+          value: 'Home',
+        },
+        /**
+         * Icon to use for option 1.
+         */
+        icon1: {
+          type: String,
+          value: 'check-box-outline-blank',
+        },
+        /**
+         * Label to use for option 1.
+         */
+        label1: {
+          type: String,
+          value: 'Option 1',
+        },
+        /**
+         * Icon to use for option 2.
+         */
+        icon2: {
+          type: String,
+          value: 'check-box-outline-blank',
+        },
+        /**
+         * Label to use for option 2.
+         */
+        label2: {
+          type: String,
+          value: 'Option 2',
+        },
+        /**
+         * Icon to use for option 3.
+         */
+        icon3: {
+          type: String,
+          value: 'check-box-outline-blank',
+        },
+        /**
+         * Label to use for option 3.
+         */
+        label3: {
+          type: String,
+          value: 'Option 3',
+        },
+        /**
+         * Icon to use for option 4.
+         */
+        icon4: {
+          type: String,
+          value: 'check-box-outline-blank',
+        },
+        /**
+         * Label to use for option 4.
+         */
+        label4: {
+          type: String,
+          value: 'Option 4',
         },
       },
-
+      /**
+       * Simple trap for bubbling up a tap / click event.
+       */
+      _itemTapped: function(e) {
+        var normalizedEvent = Polymer.dom(e);
+        var localLink = normalizedEvent.localTarget;
+        // make sure we normalize tap vs click vs keyboard
+        if (localLink.tagName !== 'a') {
+          localLink = localLink.parentNode;
+        }
+        // bubble up event
+        this.fire('pie-menu-selection', {option: localLink});
+      },
     });
   </script>
 </dom-module>
