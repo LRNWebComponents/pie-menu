@@ -54,22 +54,22 @@ SVG Menu based on the excellent resource at : https://sarasoueidan.com/tools/cir
         opacity: 0.5;
       }
       :host > div .icon-container {
-        width: 40px;
-        height: 40px;
-        top: 80px;
-        left: 80px;
+        width: 24px;
+        height: 24px;
+        top: 88px;
+        left: 88px;
       }
-      :host > div > #top-button {
-        top: 15px;
+      :host > div > #top-icon {
+        top: 22px;
       }
-      :host > div > #left-button {
-        left: 15px;
+      :host > div > #left-icon {
+        left: 22px;
       }
-      :host > div > #bottom-button {
-        top: 145px;
+      :host > div > #bottom-icon {
+        top: 153px;
       }
-      :host > div > #right-button {
-        left: 145px;
+      :host > div > #right-icon {
+        left: 153px;
       }
     </style>
     <div>
@@ -107,7 +107,7 @@ SVG Menu based on the excellent resource at : https://sarasoueidan.com/tools/cir
   <script>
     Polymer({
 
-      is: 'hello-world',
+      is: 'pie-menu',
 
       properties: {
         /**
@@ -146,32 +146,39 @@ SVG Menu based on the excellent resource at : https://sarasoueidan.com/tools/cir
           value: 'Option 4',
         },
         /**
+         * center button label
+         */
+        centerIcon: {
+          type: String,
+          value: 'icons:check-box-outline-blank',
+        },
+        /**
          * top button label
          */
         topIcon: {
           type: String,
-          value: 'check-box-outline-blank',
+          value: 'icons:check-box-outline-blank',
         },
         /**
          * left button label
          */
          leftIcon: {
           type: String,
-          value: 'check-box-outline-blank',
+          value: 'icons:check-box-outline-blank',
         },
         /**
          * bottom button label
          */
          bottomIcon: {
           type: String,
-          value: 'check-box-outline-blank',
+          value: 'icons:check-box-outline-blank',
         },
         /**
          * right button label
          */
          rightIcon: {
           type: String,
-          value: 'check-box-outline-blank',
+          value: 'icons:check-box-outline-blank',
         },
       },
 
