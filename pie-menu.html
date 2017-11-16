@@ -19,182 +19,198 @@ SVG Menu based on the excellent resource at : https://sarasoueidan.com/tools/cir
 <dom-module id="pie-menu">
   <template>
     <style>
-      :host {
-        display: block;
+      :host, 
+      :host > div {
+        width: 200px;
+        height: 200px;
       }
-      :host[size='small'] {
-        display: block;
+      :host > div {
+        position: relative;
       }
-      :host[size='medium'] {
-        display: block;
+      :host > div > * {
+        position: absolute;
+        top: 0;
+        left: 0;
       }
-      :host[size='large'] {
-        display: block;
+      :host > div svg [role="button"] {
+        fill: transparent;
       }
-      :host[size='epic'] {
-        display: block;
+      :host > div svg .outer-shapes {
+        fill:#fff;
+        stroke:#b8b5b5;
       }
-      #menu {
-        display: block;
-        margin: 0 auto;
-        transform-origin: 50% 50% 0px;
-        transform: matrix3d(0.707842, -0.70637, 0, 0, 0.70637, 0.707842, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-        touch-action: none;
-        -moz-user-select: none;
+      :host > div svg .inner-shape {
+        fill:#fff;
+        stroke:#ddd;
       }
-      .icon {
-        font-size: 1.5em;
+      :host > div svg .outer-shapes.focus, 
+      :host > div svg .outer-shapes.hover,
+      :host > div svg .inner-shape.focus, 
+      :host > div svg .inner-shape.hover {
+        fill: #e0f0ff;
       }
-
-      a {
-        cursor: pointer;
-        outline: none;
+      :host > div .icon-container.focus,
+      :host > div .icon-container.hover {
+        opacity: 0.5;
       }
-
-      /* You can change these default styles any way you want */
-      .item .sector {
-        transition: all .1s linear;
-        fill: #fff;
-        stroke: #111;
+      :host > div .icon-container {
+        width: 40px;
+        height: 40px;
+        top: 80px;
+        left: 80px;
       }
-      .item:hover .sector, .item:focus .sector {
-          fill: #eee;
+      :host > div > #top-button {
+        top: 15px;
       }
-      .menu-trigger {
-        fill: #EA2A55;
-        pointer-events: auto;
+      :host > div > #left-button {
+        left: 15px;
       }
-      .menu-trigger:hover, .menu-trigger:focus {
-        cursor: pointer;
-        fill: #FF2A55;
+      :host > div > #bottom-button {
+        top: 145px;
       }
-      symbol {
-        overflow: visible;
+      :host > div > #right-button {
+        left: 145px;
       }
     </style>
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-2 -2 504 504" id="menu">
-        <g id="symbolsContainer">
-          <!-- option 1 -->
-          <symbol class="icon" id="icon-1" viewBox="0 0 83 83">
-            <iron-icon icon="[[icon1]]"></iron-icon>
-            <text fill="#222" x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="1.2em">[[label1]]</text>
-          </symbol>
-          <!-- option 2 -->
-          <symbol class="icon" id="icon-2" viewBox="0 0 83 83">
-            <iron-icon icon="[[icon2]]"></iron-icon>
-            <text fill="#222" x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="1.2em">[[label2]]</text>
-          </symbol>
-          <!-- option 3 -->
-          <symbol class="icon" id="icon-3" viewBox="0 0 83 83">
-            <iron-icon icon="[[icon3]]"></iron-icon>
-            <text fill="#222" x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="1.2em">[[label3]]</text>
-          </symbol>
-          <!-- option 4 -->
-          <symbol class="icon icon-" id="icon-4" viewBox="0 0 83 83">
-            <iron-icon icon="[[icon4]]"></iron-icon>
-            <text fill="#222" x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="1.2em">[[label4]]</text>
-          </symbol>
-        </g>
-        <g id="itemsContainer">
-          <!-- pie part 1 -->
-          <a class="item" id="item-1" role="link" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" xlink:title$="[[label1]]" transform="matrix(1,0,0,1,0,0)" data-svg-origin="250 250"><path fill="none" stroke="#111" stroke-width="3" class="sector" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z"></path><use xlink:href="#icon-1" width="83" height="83" x="333.5" y="83.5" transform="rotate(45 375 125)"></use></a>
-          <!-- pie part 2 -->
-          <a class="item" id="item-2" role="link" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" xlink:title$="[[label2]]" transform="matrix(0,-1,1,0,0,500)" data-svg-origin="250 250"><path fill="none" stroke="#111" stroke-width="3" class="sector" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z"></path><use xlink:href="#icon-2" width="83" height="83" x="333.5" y="83.5" transform="rotate(135 375 125)"></use></a>
-          <!-- pie part 3 -->
-          <a class="item" id="item-3" role="link" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" xlink:title$="[[label3]]" transform="matrix(-1,0,0,-1,500,500)" data-svg-origin="250 250"><path fill="none" stroke="#111" stroke-width="3" class="sector" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z"></path><use xlink:href="#icon-3" width="83" height="83" x="333.5" y="83.5" transform="rotate(-135 375 125)"></use></a>
-          <!-- pie part 4 -->
-          <a class="item" id="item-4" role="link" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" xlink:title$="[[label4]]" transform="matrix(0,1,-1,0,500.00000000000006,0)" data-svg-origin="250 250"><path fill="none" stroke="#111" stroke-width="3" class="sector" d="M250,250 l250,0 A250,250 0 0,0 250.00000000000003,0 z"></path><use xlink:href="#icon-4" width="83" height="83" x="333.5" y="83.5" transform="rotate(-45 375 125)"></use></a>
-        </g>
-        <g id="trigger" role="button">
-          <a class="trigger menu-trigger" id="item-5" role="link" tabindex="1" on-tap="_itemTapped" on-keydown="_itemTapped" xlink:title$="[[fabLabel]]">
-            <circle cx="250" cy="250" r="75"></circle>
-            <text fill="#222" x="50%" y="50%" dy=".3em" text-anchor="middle" font-size="1.2em">[[fabLabel]]</text>
-          </a>
-        </g>
-    </svg>
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 193.95 193.94">
+        <path id="right-shape" data-button="right" class="outer-shapes" d="M165.54 28.4a97 97 0 0 1 0 137.14l-46-46a31.86 31.86 0 0 0 0-45z"/>
+        <path id="bottom-shape" data-button="bottom" class="outer-shapes" d="M165.54 165.54a97 97 0 0 1-137.14 0l46.05-46a31.84 31.84 0 0 0 45 0z"/>
+        <path id="left-shape" data-button="left" class="outer-shapes" d="M28.4 165.54a97 97 0 0 1 0-137.14l46.05 46.05a31.84 31.84 0 0 0 0 45z"/>
+        <path id="top-shape" data-button="top" class="outer-shapes" d="M28.4 28.4a97 97 0 0 1 137.14 0l-46 46.05a31.84 31.84 0 0 0-45 0z"/>
+        <circle id="center-shape" data-button="center" class="inner-shape" cx="96.97" cy="96.97" r="31.67"/>
+      </svg>
+      <div id="right-icon" data-button="right" class="icon-container">
+        <iron-icon icon="[[rightIcon]]"></iron-icon>
+      </div>
+      <div id="bottom-icon" data-button="bottom" class="icon-container">
+        <iron-icon icon="[[bottomIcon]]"></iron-icon>
+      </div>
+      <div id="left-icon" data-button="left" class="icon-container">
+        <iron-icon icon="[[leftIcon]]"></iron-icon>
+      </div>
+      <div id="top-icon" data-button="top" class="icon-container">
+        <iron-icon icon="[[topIcon]]"></iron-icon>
+      </div>
+      <div id="center-icon" data-button="center" class="icon-container">
+        <iron-icon icon="[[centerIcon]]"></iron-icon>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 193.95 193.94">
+        <path id="right-button" xlink:title$="[[rightLabel]]" data-button="right" role="button" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" d="M165.54 28.4a97 97 0 0 1 0 137.14l-46-46a31.86 31.86 0 0 0 0-45z"/>
+        <path id="bottom-button" xlink:title$="[[bottomLabel]]" data-button="bottom" role="button" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" d="M165.54 165.54a97 97 0 0 1-137.14 0l46.05-46a31.84 31.84 0 0 0 45 0z"/>
+        <path id="left-button" xlink:title$="[[leftLabel]]" data-button="left" role="button" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" d="M28.4 165.54a97 97 0 0 1 0-137.14l46.05 46.05a31.84 31.84 0 0 0 0 45z"/>
+        <path id="top-button" xlink:title$="[[topLabel]]" data-button="top" role="button" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" d="M28.4 28.4a97 97 0 0 1 137.14 0l-46 46.05a31.84 31.84 0 0 0-45 0z"/>
+        <circle id="center-button" xlink:title$="[[centerLabel]]" data-button="center" tabindex="0" on-tap="_itemTapped" on-keydown="_itemTapped" role="button" cx="96.97" cy="96.97" r="31.67"/>
+      </svg>
+    </div>
   </template>
   <script>
     Polymer({
-      is: 'pie-menu',
+
+      is: 'hello-world',
+
       properties: {
         /**
-         * Simple sizes
+         * center button label
          */
-        size: {
-          type: String,
-          value: 'medium',
-          reflectToAttribute: true,
-        },
-        /**
-         * Icon to use for the middle fab button.
-         */
-        fabIcon: {
-          type: String,
-          value: 'home',
-        },
-        /**
-         * Label to use for option 1.
-         */
-        fabLabel: {
+        centerLabel: {
           type: String,
           value: 'Home',
         },
         /**
-         * Icon to use for option 1.
+         * top button label
          */
-        icon1: {
-          type: String,
-          value: 'check-box-outline-blank',
-        },
-        /**
-         * Label to use for option 1.
-         */
-        label1: {
+        topLabel: {
           type: String,
           value: 'Option 1',
         },
         /**
-         * Icon to use for option 2.
+         * left button label
          */
-        icon2: {
-          type: String,
-          value: 'check-box-outline-blank',
-        },
-        /**
-         * Label to use for option 2.
-         */
-        label2: {
+         leftLabel: {
           type: String,
           value: 'Option 2',
         },
         /**
-         * Icon to use for option 3.
+         * bottom button label
          */
-        icon3: {
-          type: String,
-          value: 'check-box-outline-blank',
-        },
-        /**
-         * Label to use for option 3.
-         */
-        label3: {
+         bottomLabel: {
           type: String,
           value: 'Option 3',
         },
         /**
-         * Icon to use for option 4.
+         * right button label
          */
-        icon4: {
+         rightLabel: {
+          type: String,
+          value: 'Option 4',
+        },
+        /**
+         * top button label
+         */
+        topIcon: {
           type: String,
           value: 'check-box-outline-blank',
         },
         /**
-         * Label to use for option 4.
+         * left button label
          */
-        label4: {
+         leftIcon: {
           type: String,
-          value: 'Option 4',
+          value: 'check-box-outline-blank',
         },
+        /**
+         * bottom button label
+         */
+         bottomIcon: {
+          type: String,
+          value: 'check-box-outline-blank',
+        },
+        /**
+         * right button label
+         */
+         rightIcon: {
+          type: String,
+          value: 'check-box-outline-blank',
+        },
+      },
+
+      /**
+       * add listeners for data-buttons
+       */
+      ready: function() {
+        var buttons = this.querySelectorAll('[role="button"][data-button]');
+        for (var i = 0; i < buttons.length; i++) {
+          this._addListenerAddState(this,buttons[i],'mouseover','hover');
+          this._addListenerAddState(this,buttons[i],'focus','focus');
+          this._addListenerRemoveState(this,buttons[i],'mouseout','hover');
+          this._addListenerRemoveState(this,buttons[i],'blur','focus');
+        }
+      },
+      /**
+       * add focus or hover states
+       */
+      '_addListenerAddState': function(menu,button,action,state){
+        button.addEventListener(action, (e) => {
+          var elements = menu._getButtonElements(menu,button);
+          for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.add(state);
+          }
+        });
+      },
+      /**
+       * remove focus or hover states
+       */
+      '_addListenerRemoveState': function(menu,button,action,state){
+        button.addEventListener(action, (e) => {
+          var elements = menu._getButtonElements(menu,button);
+          for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.remove(state);
+          }
+        });
+      },
+      '_getButtonElements': function(menu,button){          
+        return menu.querySelectorAll('[data-button="'+button.getAttribute('data-button')+'"]');
       },
       /**
        * Simple trap for bubbling up a tap / click event.
