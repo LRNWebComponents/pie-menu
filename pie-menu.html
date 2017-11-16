@@ -226,7 +226,7 @@ SVG Menu based on the excellent resource at : https://sarasoueidan.com/tools/cir
         var normalizedEvent = Polymer.dom(e);
         var localLink = normalizedEvent.localTarget;
         // make sure we normalize tap vs click vs keyboard
-        if (localLink.tagName !== 'a') {
+        if (!(localLink.hasAttribute('role') && localLink.getAttribute('role') !== 'button')) {
           localLink = localLink.parentNode;
         }
         // bubble up event
